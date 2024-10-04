@@ -1,56 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Game Prediction Project</title>
 </head>
 <body>
-	<h1>NBA Game Prediction Project</h1>
-
-    <h2>Introduction</h2>
+    <h1>Introduction</h1>
     <p>The objective of this project is to use Machine Learning techniques to predict the outcome of Future NBA games with historical data.</p>
 
-    <h2>Problem and Motivation</h2>
+    <h1>Problem and Motivation</h1>
     <p>Sports betting books are generally unreliable and do a poor job at estimating the results of sports games. The susceptibility of the books to high variance has led to scandals in recent years, as well as a decrease in user enjoyment due to inconsistencies across books on different platforms.</p>
+    
     <p>By implementing an algorithm that more accurately predicts the results of games, the goal would be to standardize books across all platforms. Assuming the algorithm works as intended, it could be sold to platforms who would implement it in place of their current-practice prediction models.</p>
 
-    <h2>Literature Review</h2>
+    <h1>Literature Review</h1>
     <p>Predicting the winner can be difficult because of the complexity of interactions between 10 people on the court [2]. Previous studies have used logistic and linear regression to predict the outcome of games [1]. SVM and Random Forest models can be used to predict the outcome as demonstrated by [3].</p>
 
-    <h2>Dataset Description</h2>
+    <h1>Dataset Description</h1>
     <p>The dataset(s) utilized by our project involves player statistics collected over a long period of the NBA. Attributes of each data-point include, but are not limited to: Points, rebounds, assists, opponent, and date.</p>
-    <p>Link:</p>
+    
+    <p>Link: <a href="https://www.kaggle.com/datasets/wyattowalsh/basketball">https://www.kaggle.com/datasets/wyattowalsh/basketball</a></p>
 
-    <h2>Methods</h2>
-    <h3>Preprocessing Methods</h3>
+    <h1>Methods</h1>
+    <h2>Preprocessing Methods</h2>
     <ul>
-        <li>Dimension reduction will be done using <strong>Principal component analysis (PCA)</strong> as our dataset has many features. Prior knowledge of the problem will also determine which features we think are important.</li>
+        <li>Dimension reduction will be done using Principal component analysis (PCA) as our dataset has many features. Prior knowledge of the problem will also determine which features we think are important.</li>
         <li>Cleaning the dataset:
             <ul>
                 <li>Data points with missing features or bad values will be deleted.</li>
                 <li>Standardization by subtracting the sample mean and dividing by the sample standard deviation.</li>
-                <li>We will use <strong>one-hot encoding</strong> for non-numerical features (eg. type of game and team names).</li>
-                <li>We will detect outliers using <strong>DBScan</strong> and apply our learning.</li>
             </ul>
         </li>
+        <li>We will use one-hot encoding for non-numerical features (eg. type of game and team names).</li>
+        <li>We will detect outliers using DBScan and apply our learning.</li>
         <li>70-20-10 split for training, validation, and testing respectively, accounting for hyperparameters in potential models.</li>
-        <li><strong>Grid search or random search</strong> for hyperparameter selection.</li>
+        <li>Grid search or random search for hyperparameter selection.</li>
     </ul>
 
-    <h3>ML Models</h3>
+    <h2>ML Models</h2>
     <ul>
-        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors [4].</li>
+        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors  [4].</li>
         <li><strong>Logistic Regression:</strong> is a supervised machine learning model that can be used for binary classification making it ideal for predicting win or lose outcomes [5].</li>
         <li><strong>Support Vector Machines:</strong> is a supervised machine learning model that uses an optimal hyperplane to separate winning and losing outcomes [2]. We can use this model to handle linear and non-linear data.</li>
         <li><strong>Random Forest:</strong> is a supervised machine learning model where we can create multiple decision trees to improve prediction accuracy and in case of game variability factors [1].</li>
     </ul>
 
-    <h2>Results and Discussion</h2>
+    <h1>Results and Discussion</h1>
     <p>Quantitative metrics are F1 score, accuracy, precision, and recall because binary classification is used.</p>
     <ul>
         <li>Accuracy gives insight into the model's prediction performance.</li>
-        <li>Precision marks false positives.</li>
-        <li>Recall gives insight into potential false negatives.</li>
+        <li>Precision marks the proportion of true positive predictions.</li>
+        <li>Recall measures the proportion of actual positive instances to those identified.</li>
         <li>F1 score balances our precision and recall, giving the most insight into where model accuracy lies and allows model adjustment.</li>
     </ul>
     <p>We expect the model to correctly identify wins/losses with an accuracy of at least a baseline of 50% and a stretch goal of outperforming other models (accuracy/prediction upwards of 70%). We plan to have a sustainable model trained once and refined every season via easy to change variables. Ethically, we hope redefining prediction algorithms in the sports betting industry allows consumers better insight into potential bets.</p>
+
+    <h1>References</h1>
+    <ol>
+        <li>M. Beckler, H. Wang, and M. Papamichael, "NBA Oracle." Accessed: Oct. 04, 2024. [Online]. Available: <a href="http://www.mbeckler.org/coursework/2008-2009/10701_report.pdf">http://www.mbeckler.org/coursework/2008-2009/10701_report.pdf</a></li>
+        <li>C. Osken and C. Onay, "Predicting the winning team in basketball: A novel approach," Heliyon, vol. 8, no. 12, p. e12189, Dec. 2022, doi: <a href="https://doi.org/10.1016/j.heliyon.2022.e12189">https://doi.org/10.1016/j.heliyon.2022.e12189</a>.</li>
+        <li>J. Wang, "Predictive Analysis of NBA Game Outcomes through Machine Learning," Oct. 2023, doi: <a href="https://doi.org/10.1145/3635638.3635646">https://doi.org/10.1145/3635638.3635646</a>.</li>
+        <li>H. Ju and H. Zhang, "Application of Multiple Linear Regression Model in the Sustainable Development of National Traditional Sports," Applied Mathematics and Nonlinear Sciences, vol. 8, no. 2, pp. 3033–3042, Jul. 2023, doi: <a href="https://doi.org/10.2478/amns.2023.2.00019">https://doi.org/10.2478/amns.2023.2.00019</a>.</li>
+        <li>Zheng Songling and M. Xi, "An Improved Logistic Regression Method for Assessing the Performance of Track and Field Sports," Computational Intelligence and Neuroscience, vol. 2022, pp. 1–10, Aug. 2022, doi: <a href="https://doi.org/10.1155/2022/6341495">https://doi.org/10.1155/2022/6341495</a>.</li>
+        <li>C. Walsh and A. Joshi, "Machine learning for sports betting: Should model selection be based on accuracy or calibration?," Machine Learning with Applications, vol. 16, p. 100539, Jun. 2024, doi: <a href="https://doi.org/10.1016/j.mlwa.2024.100539">https://doi.org/10.1016/j.mlwa.2024.100539</a>.</li>
+        <li>J. P. Dmochowski, "A statistical theory of optimal decision-making in sports betting," vol. 18, no. 6, pp. e0287601–e0287601, Jun. 2023, doi: <a href="https://doi.org/10.1371/journal.pone.0287601">https://doi.org/10.1371/journal.pone.0287601</a>.</li>
+        <li>U. Matej, Š. Gustav, H. Ondřej, and Ž. Filip, "Optimal sports betting strategies in practice: an experimental review," IMA Journal of Management Mathematics, vol. 32, no. 4, pp. 465–489, Feb. 2021, doi: <a href="https://doi.org/10.1093/imaman/dpaa029">https://doi.org/10.1093/imaman/dpaa029</a>.</li>
+    </ol>
 </body>
 </html>
