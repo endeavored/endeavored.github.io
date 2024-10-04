@@ -3,6 +3,54 @@
 <head>
 </head>
 <body>
-<h1>Hello World</h1>
+	<h1>NBA Game Prediction Project</h1>
+
+    <h2>Introduction</h2>
+    <p>The objective of this project is to use Machine Learning techniques to predict the outcome of Future NBA games with historical data.</p>
+
+    <h2>Problem and Motivation</h2>
+    <p>Sports betting books are generally unreliable and do a poor job at estimating the results of sports games. The susceptibility of the books to high variance has led to scandals in recent years, as well as a decrease in user enjoyment due to inconsistencies across books on different platforms.</p>
+    <p>By implementing an algorithm that more accurately predicts the results of games, the goal would be to standardize books across all platforms. Assuming the algorithm works as intended, it could be sold to platforms who would implement it in place of their current-practice prediction models.</p>
+
+    <h2>Literature Review</h2>
+    <p>Predicting the winner can be difficult because of the complexity of interactions between 10 people on the court [2]. Previous studies have used logistic and linear regression to predict the outcome of games [1]. SVM and Random Forest models can be used to predict the outcome as demonstrated by [3].</p>
+
+    <h2>Dataset Description</h2>
+    <p>The dataset(s) utilized by our project involves player statistics collected over a long period of the NBA. Attributes of each data-point include, but are not limited to: Points, rebounds, assists, opponent, and date.</p>
+    <p>Link:</p>
+
+    <h2>Methods</h2>
+    <h3>Preprocessing Methods</h3>
+    <ul>
+        <li>Dimension reduction will be done using <strong>Principal component analysis (PCA)</strong> as our dataset has many features. Prior knowledge of the problem will also determine which features we think are important.</li>
+        <li>Cleaning the dataset:
+            <ul>
+                <li>Data points with missing features or bad values will be deleted.</li>
+                <li>Standardization by subtracting the sample mean and dividing by the sample standard deviation.</li>
+                <li>We will use <strong>one-hot encoding</strong> for non-numerical features (eg. type of game and team names).</li>
+                <li>We will detect outliers using <strong>DBScan</strong> and apply our learning.</li>
+            </ul>
+        </li>
+        <li>70-20-10 split for training, validation, and testing respectively, accounting for hyperparameters in potential models.</li>
+        <li><strong>Grid search or random search</strong> for hyperparameter selection.</li>
+    </ul>
+
+    <h3>ML Models</h3>
+    <ul>
+        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors [4].</li>
+        <li><strong>Logistic Regression:</strong> is a supervised machine learning model that can be used for binary classification making it ideal for predicting win or lose outcomes [5].</li>
+        <li><strong>Support Vector Machines:</strong> is a supervised machine learning model that uses an optimal hyperplane to separate winning and losing outcomes [2]. We can use this model to handle linear and non-linear data.</li>
+        <li><strong>Random Forest:</strong> is a supervised machine learning model where we can create multiple decision trees to improve prediction accuracy and in case of game variability factors [1].</li>
+    </ul>
+
+    <h2>Results and Discussion</h2>
+    <p>Quantitative metrics are F1 score, accuracy, precision, and recall because binary classification is used.</p>
+    <ul>
+        <li>Accuracy gives insight into the model's prediction performance.</li>
+        <li>Precision marks false positives.</li>
+        <li>Recall gives insight into potential false negatives.</li>
+        <li>F1 score balances our precision and recall, giving the most insight into where model accuracy lies and allows model adjustment.</li>
+    </ul>
+    <p>We expect the model to correctly identify wins/losses with an accuracy of at least a baseline of 50% and a stretch goal of outperforming other models (accuracy/prediction upwards of 70%). We plan to have a sustainable model trained once and refined every season via easy to change variables. Ethically, we hope redefining prediction algorithms in the sports betting industry allows consumers better insight into potential bets.</p>
 </body>
 </html>
