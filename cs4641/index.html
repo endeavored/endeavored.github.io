@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0">
     <title>NBA Game Prediction Project</title>
 </head>
 <body>
@@ -40,7 +38,7 @@
 
     <h2>ML Models</h2>
     <ul>
-        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors  [4].</li>
+        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors [4].</li>
         <li><strong>Logistic Regression:</strong> is a supervised machine learning model that can be used for binary classification making it ideal for predicting win or lose outcomes [5].</li>
         <li><strong>Support Vector Machines:</strong> is a supervised machine learning model that uses an optimal hyperplane to separate winning and losing outcomes [2]. We can use this model to handle linear and non-linear data.</li>
         <li><strong>Random Forest:</strong> is a supervised machine learning model where we can create multiple decision trees to improve prediction accuracy and in case of game variability factors [1].</li>
@@ -56,41 +54,46 @@
     </ul>
     <p>We expect the model to correctly identify wins/losses with an accuracy of at least a baseline of 50% and a stretch goal of outperforming other models (accuracy/prediction upwards of 70%). We plan to have a sustainable model trained once and refined every season via easy to change variables. Ethically, we hope redefining prediction algorithms in the sports betting industry allows consumers better insight into potential bets.</p>
 
-	<h1>Gantt Chart</h1>
-	<iframe width="100%" height="750px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT1ggXSZXs1XpDk8AMOmEeGww-YPANF_QHXqIEghOTeC7YukcOpQv2O7OndCgcjCXzXmA_PfHccIkby/pubhtml?gid=1992682271&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
-	<p>Link: <a href="https://docs.google.com/spreadsheets/d/1XQ0EQoz8NIh5HJAoZL4YnIaZN_QbHBAhaE8E8BESF-k/">https://docs.google.com/spreadsheets/d/1XQ0EQoz8NIh5HJAoZL4YnIaZN_QbHBAhaE8E8BESF-k/</a></p>
+    <h1>Data Exploration and Preprocessing</h1>
+    <p>Initially we standardized our dataset to ensure that each feature contributed an equal amount to the PCA transformation.</p>
 
-	<h1>Contribution Table</h1>
-	<table border="1">
-	  <thead>
-		<tr>
-		  <th>Name</th>
-		  <th>Contributions</th>
-		</tr>
-	  </thead>
-	  <tbody>
-		<tr>
-		  <td>Anirudh</td>
-		  <td>Literature Review, ML Algorithms/Models, Video Creation</td>
-		</tr>
-		<tr>
-		  <td>Chris</td>
-		  <td>Results & Discussion, Video Creation, GitHub Page</td>
-		</tr>
-		<tr>
-		  <td>Emily</td>
-		  <td>Preprocessing Methods, Video Creation</td>
-		</tr>
-		<tr>
-		  <td>Jalen</td>
-		  <td>Dataset Description, Problem Definition, Video Creation, Gantt Chart</td>
-		</tr>
-		<tr>
-		  <td>Jeff</td>
-		  <td>Dataset Description, Problem Definition, Video Creation</td>
-		</tr>
-	  </tbody>
-	</table>
+	<img src="imgs/p1.png" height="500px" width="700px" />
+
+    <h2>Figure Name: Depicting variation accounted for by found principal components</h2>
+
+    <p>Observing the scree plot gives us insight towards the principal components that contribute the most to variance in general. It's important to note that this is general variance, not variance directly pertaining towards the win or loss of the home team.</p>
+
+    <p>The printed correlations are tied directly to the win or loss of the home team for each principal component. As we can see, the most explanatory principal component is PC1, which is negatively correlated with the win or loss of the home team. Meaning, if there is a high value for PC1 in a given game, that game lends itself to being more likely a loss for the home team. Other components such as PC2 and PC6 are among the higher correlated principal components with wins and losses, but their correlation constant is not nearly as dominant as PC1's.</p>
+
+    <p>The dataset is collected after games and since our model is looking to predict the outcome of games, these statistics do not necessarily indicate how features will play out in a given game. There is some merit in observing the cumulative of these values leading up to each game. If a team is consistently putting up high contributions towards the PC1 feature, for example, we hypothesize they are less likely to win the next game.</p>
+
+	<img src="imgs/p2.png" height="500px" width="700px" />
+    <h2>Figure Name: Comparison of principal components by correlation with winning</h2>
+
+	<img src="imgs/p3.png" height="500px" width="700px" />
+    <h2>Figure Name: Using PC1 and PC2 to visualize their relationship with winning</h2>
+
+	<img src="imgs/p4.png" height="500px" width="700px" />
+    <h2>Figure Name: Using PC1, PC2, PC4 to visualize their relationship with winning</h2>
+
+    <p>This portion of data reduction is much more relevant towards the scope of our project. Focusing on the mean of the features by team from their last 10 games provides a good understanding of how the team is performing in general at the time of their upcoming games, as well as the most important features that are contributing towards their wins or losses.</p>
+    <p>We plan to predict the outcomes of future games using principal components that are most directly correlated (positive or negative) and analyze how they reflect a team leading up to their future games. Higher values of PC1 and PC2 show the percentage of winning goes down. The opposite happened for PC4. While this portion of our project is not used to draw definitive conclusions or predictions, it can establish the foundation for our machine learning models for predicting the outcome of games.</p>
+
+    <h1>Logistic Regression</h1>
+    <p>We created two variations of the Logistic Regression model: A basic one using the data as it was fed in and a balanced one with parameter tuning.</p>
+
+	<img src="imgs/p5.png" height="500px" width="700px" />
+    <h2>Figure Name: Classification confusion matrix for the basic model</h2>
+
+    <p>The basic model has an accuracy of 60% and a recall of 72.73% meaning that it is doing well to predict the outcome of a game. The precision rate at 47.06% is low meaning that it incorrectly predicts when the home team actually wins. This balance between recall and precision shows that it is biased towards predicting loss outcomes for a team. In addition, the F1 score was 57.14%. The confusion matrix shows that there were 9 false positives but also it correctly identifies 10 losses and 8 wins. This is reflected in the lower precision score.</p>
+
+	<img src="imgs/p6.png" height="500px" width="700px" />
+    <h2>Figure Name: Classification confusion matrix for the balanced model</h2>
+
+    <p>The balanced model includes a regularization parameter of 0.1 improving the accuracy to 66.67% and F1 score to 61.54%. A higher F1 score means that there is a better balance of precision and recall. This model compared to the basic one predicts less false positives. This balanced model is also better at predicting losses. The confusion matrix displays that the model correctly identified 12 losses and 8 wins. The recall percentage remains because it is consistent in identifying win outcomes.</p>
+
+    <h1>Next Steps</h1>
+    <p>The baseline accuracy range that we were targeting was 50% upwards to 70%. While the results of both of these logistic regression models fall within that range there is much that can be done to increase accuracy. One thing we could do is incorporate additional features or include rolling averages for key principal components. This could allow us to see the team's trends over a period of time. Another improvement we could make is to test different and cross validate regularization strengths to increase optimization of the model. Finally as additional validation we could train this model across a different data set to verify the model's reliability. Since we have achieved the targeted accuracy, we are going to be developing more complex models since there is a high possibility of nonlinear relationships between the principal components.</p>
 
     <h1>References</h1>
     <ol>
