@@ -59,36 +59,36 @@
 
 	<img src="imgs/p1.png" height="500px" width="700px" />
 
-    <h2>Figure Name: Depicting variation accounted for by found principal components</h2>
+<i style="display: block; text-align: left;">Figure Name: Depicting variation accounted for by found principal components</i>
 
-    <p>Observing the scree plot gives us insight towards the principal components that contribute the most to variance in general. It's important to note that this is general variance, not variance directly pertaining towards the win or loss of the home team.</p>
+<p>Observing the scree plot gives us insight towards the principal components that contribute the most to variance in general. It's important to note that this is general variance, not variance directly pertaining towards the win or loss of the home team.</p>
 
-    <p>The printed correlations are tied directly to the win or loss of the home team for each principal component. As we can see, the most explanatory principal component is PC1, which is negatively correlated with the win or loss of the home team. Meaning, if there is a high value for PC1 in a given game, that game lends itself to being more likely a loss for the home team. Other components such as PC2 and PC6 are among the higher correlated principal components with wins and losses, but their correlation constant is not nearly as dominant as PC1's.</p>
+<p>The printed correlations are tied directly to the win or loss of the home team for each principal component. As we can see, the most explanatory principal component is PC1, which is negatively correlated with the win or loss of the home team. Meaning, if there is a high value for PC1 in a given game, that game lends itself to being more likely a loss for the home team. Other components such as PC2 and PC6 are among the higher correlated principal components with wins and losses, but their correlation constant is not nearly as dominant as PC1's.</p>
 
-    <p>The dataset is collected after games and since our model is looking to predict the outcome of games, these statistics do not necessarily indicate how features will play out in a given game. There is some merit in observing the cumulative of these values leading up to each game. If a team is consistently putting up high contributions towards the PC1 feature, for example, we hypothesize they are less likely to win the next game.</p>
+<p>The dataset is collected after games and since our model is looking to predict the outcome of games, these statistics do not necessarily indicate how features will play out in a given game. There is some merit in observing the cumulative of these values leading up to each game. If a team is consistently putting up high contributions towards the PC1 feature, for example, we hypothesize they are less likely to win the next game.</p>
 
-	<img src="imgs/p2.png" height="500px" width="700px" />
-    <h2>Figure Name: Comparison of principal components by correlation with winning</h2>
+<img src="imgs/p2.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Comparison of principal components by correlation with winning</i>
 
-	<img src="imgs/p3.png" height="500px" width="700px" />
-    <h2>Figure Name: Using PC1 and PC2 to visualize their relationship with winning</h2>
+<img src="imgs/p3.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Using PC1 and PC2 to visualize their relationship with winning</i>
 
-	<img src="imgs/p4.png" height="500px" width="700px" />
-    <h2>Figure Name: Using PC1, PC2, PC4 to visualize their relationship with winning</h2>
+<img src="imgs/p4.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Using PC1, PC2, PC4 to visualize their relationship with winning</i>
 
-    <p>This portion of data reduction is much more relevant towards the scope of our project. Focusing on the mean of the features by team from their last 10 games provides a good understanding of how the team is performing in general at the time of their upcoming games, as well as the most important features that are contributing towards their wins or losses.</p>
-    <p>We plan to predict the outcomes of future games using principal components that are most directly correlated (positive or negative) and analyze how they reflect a team leading up to their future games. Higher values of PC1 and PC2 show the percentage of winning goes down. The opposite happened for PC4. While this portion of our project is not used to draw definitive conclusions or predictions, it can establish the foundation for our machine learning models for predicting the outcome of games.</p>
+<p>This portion of data reduction is much more relevant towards the scope of our project. Focusing on the mean of the features by team from their last 10 games provides a good understanding of how the team is performing in general at the time of their upcoming games, as well as the most important features that are contributing towards their wins or losses.</p>
+<p>We plan to predict the outcomes of future games using principal components that are most directly correlated (positive or negative) and analyze how they reflect a team leading up to their future games. Higher values of PC1 and PC2 show the percentage of winning goes down. The opposite happened for PC4. While this portion of our project is not used to draw definitive conclusions or predictions, it can establish the foundation for our machine learning models for predicting the outcome of games.</p>
 
-    <h1>Logistic Regression</h1>
-    <p>We created two variations of the Logistic Regression model: A basic one using the data as it was fed in and a balanced one with parameter tuning.</p>
+<h1>Logistic Regression</h1>
+<p>We created two variations of the Logistic Regression model: A basic one using the data as it was fed in and a balanced one with parameter tuning.</p>
 
-	<img src="imgs/p5.png" height="500px" width="700px" />
-    <h2>Figure Name: Classification confusion matrix for the basic model</h2>
+<img src="imgs/p5.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Classification confusion matrix for the basic model</i>
 
-    <p>The basic model has an accuracy of 60% and a recall of 72.73% meaning that it is doing well to predict the outcome of a game. The precision rate at 47.06% is low meaning that it incorrectly predicts when the home team actually wins. This balance between recall and precision shows that it is biased towards predicting loss outcomes for a team. In addition, the F1 score was 57.14%. The confusion matrix shows that there were 9 false positives but also it correctly identifies 10 losses and 8 wins. This is reflected in the lower precision score.</p>
+<p>The basic model has an accuracy of 60% and a recall of 72.73% meaning that it is doing well to predict the outcome of a game. The precision rate at 47.06% is low meaning that it incorrectly predicts when the home team actually wins. This balance between recall and precision shows that it is biased towards predicting loss outcomes for a team. In addition, the F1 score was 57.14%. The confusion matrix shows that there were 9 false positives but also it correctly identifies 10 losses and 8 wins. This is reflected in the lower precision score.</p>
 
-	<img src="imgs/p6.png" height="500px" width="700px" />
-    <h2>Figure Name: Classification confusion matrix for the balanced model</h2>
+<img src="imgs/p6.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Classification confusion matrix for the balanced model</i>
 
     <p>The balanced model includes a regularization parameter of 0.1 improving the accuracy to 66.67% and F1 score to 61.54%. A higher F1 score means that there is a better balance of precision and recall. This model compared to the basic one predicts less false positives. This balanced model is also better at predicting losses. The confusion matrix displays that the model correctly identified 12 losses and 8 wins. The recall percentage remains because it is consistent in identifying win outcomes.</p>
 
