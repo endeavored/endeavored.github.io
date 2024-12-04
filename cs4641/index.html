@@ -23,29 +23,26 @@
     <h1>Methods</h1>
     <h2>Preprocessing Methods</h2>
     <ul>
-        <li>Dimension reduction will be done using Principal component analysis (PCA) as our dataset has many features. Prior knowledge of the problem will also determine which features we think are important.</li>
+        <li>Dimension reduction was done using Principal component analysis (PCA) as our dataset has many features.</li>
         <li>Cleaning the dataset:
             <ul>
-                <li>Data points with missing features or bad values will be deleted.</li>
-                <li>Standardization by subtracting the sample mean and dividing by the sample standard deviation.</li>
+                <li>Data points with missing features or bad values were deleted. </li>
+                <li>Standardization done subtracting the sample mean and dividing by the sample standard deviation.</li>
+                <li>We used <strong>DBScan</strong> to detect outliers.</li>
             </ul>
         </li>
-        <li>We will use one-hot encoding for non-numerical features (eg. type of game and team names).</li>
-        <li>We will detect outliers using DBScan and apply our learning.</li>
         <li>70-20-10 split for training, validation, and testing respectively, accounting for hyperparameters in potential models.</li>
-        <li>Grid search or random search for hyperparameter selection.</li>
     </ul>
 
     <h2>ML Models</h2>
     <ul>
-        <li><strong>Linear Regression:</strong> is a supervised machine learning model that can be used to explain the relationship between game wins with NBA stats or other game factors [4].</li>
         <li><strong>Logistic Regression:</strong> is a supervised machine learning model that can be used for binary classification making it ideal for predicting win or lose outcomes [5].</li>
-        <li><strong>Support Vector Machines:</strong> is a supervised machine learning model that uses an optimal hyperplane to separate winning and losing outcomes [2]. We can use this model to handle linear and non-linear data.</li>
         <li><strong>Random Forest:</strong> is a supervised machine learning model where we can create multiple decision trees to improve prediction accuracy and in case of game variability factors [1].</li>
+        <li><strong>Support Vector Machines:</strong> is a supervised machine learning model that uses an optimal hyperplane to separate winning and losing outcomes [2]. We can use this model to handle linear and non-linear data.</li>
     </ul>
 
     <h1>Results and Discussion</h1>
-    <p>Quantitative metrics are F1 score, accuracy, precision, and recall because binary classification is used and these are best for binary classification models due to the binary measurement (positive vs negative).</p>
+    <p>Quantitative metrics are F1 score, accuracy, precision, and recall because binary classification is used.</p>
     <ul>
         <li>Accuracy gives insight into the model's prediction performance.</li>
         <li>Precision marks the proportion of true positive predictions.</li>
@@ -55,10 +52,9 @@
     <p>We expect the model to correctly identify wins/losses with an accuracy of at least a baseline of 50% and a stretch goal of outperforming other models (accuracy/prediction upwards of 70%). We plan to have a sustainable model trained once and refined every season via easy to change variables. Ethically, we hope redefining prediction algorithms in the sports betting industry allows consumers better insight into potential bets.</p>
 
     <h1>Data Exploration and Preprocessing</h1>
-    <p>Initially we standardized our dataset to ensure that each feature contributed an equal amount to the PCA transformation.</p>
+    <p>Initially, we standardized our dataset to ensure that each feature contributed an equal amount to the PCA transformation.</p>
 
-	<img src="imgs/p1.png" height="500px" width="700px" />
-
+<img src="imgs/p1.png" height="500px" width="700px" />
 <i style="display: block; text-align: left;">Figure Name: Depicting variation accounted for by found principal components</i>
 
 <p>Observing the scree plot gives us insight towards the principal components that contribute the most to variance in general. It's important to note that this is general variance, not variance directly pertaining towards the win or loss of the home team.</p>
@@ -80,20 +76,71 @@
 <p>We plan to predict the outcomes of future games using principal components that are most directly correlated (positive or negative) and analyze how they reflect a team leading up to their future games. Higher values of PC1 and PC2 show the percentage of winning goes down. The opposite happened for PC4. While this portion of our project is not used to draw definitive conclusions or predictions, it can establish the foundation for our machine learning models for predicting the outcome of games.</p>
 
 <h1>Logistic Regression</h1>
-<p>We created two variations of the Logistic Regression model: A basic one using the data as it was fed in and a balanced one with parameter tuning.</p>
 
 <img src="imgs/p5.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Logistic Regression Visualization [10]</i>
+
+<p>We created two variations of the Logistic Regression model: A basic one using the data as it was fed in and a balanced one with parameter tuning.</p>
+
+<img src="imgs/p6.png" height="500px" width="700px" />
 <i style="display: block; text-align: left;">Figure Name: Classification confusion matrix for the basic model</i>
 
 <p>The basic model has an accuracy of 60% and a recall of 72.73% meaning that it is doing well to predict the outcome of a game. The precision rate at 47.06% is low meaning that it incorrectly predicts when the home team actually wins. This balance between recall and precision shows that it is biased towards predicting loss outcomes for a team. In addition, the F1 score was 57.14%. The confusion matrix shows that there were 9 false positives but also it correctly identifies 10 losses and 8 wins. This is reflected in the lower precision score.</p>
 
-<img src="imgs/p6.png" height="500px" width="700px" />
+<img src="imgs/p7.png" height="500px" width="700px" />
 <i style="display: block; text-align: left;">Figure Name: Classification confusion matrix for the balanced model</i>
 
-    <p>The balanced model includes a regularization parameter of 0.1 improving the accuracy to 66.67% and F1 score to 61.54%. A higher F1 score means that there is a better balance of precision and recall. This model compared to the basic one predicts less false positives. This balanced model is also better at predicting losses. The confusion matrix displays that the model correctly identified 12 losses and 8 wins. The recall percentage remains because it is consistent in identifying win outcomes.</p>
+<p>The balanced model includes a regularization parameter of 0.1 improving the accuracy to 66.67% and F1 score to 61.54%. A higher F1 score means that there is a better balance of precision and recall. This model compared to the basic one predicts less false positives. This balanced model is also better at predicting losses. The confusion matrix displays that the model correctly identified 12 losses and 8 wins. The recall percentage remains because it is consistent in identifying win outcomes.</p>
 
-    <h1>Next Steps</h1>
-    <p>The baseline accuracy range that we were targeting was 50% upwards to 70%. While the results of both of these logistic regression models fall within that range there is much that can be done to increase accuracy. One thing we could do is incorporate additional features or include rolling averages for key principal components. This could allow us to see the team's trends over a period of time. Another improvement we could make is to test different and cross validate regularization strengths to increase optimization of the model. Finally as additional validation we could train this model across a different data set to verify the model's reliability. Since we have achieved the targeted accuracy, we are going to be developing more complex models since there is a high possibility of nonlinear relationships between the principal components.</p>
+<h1>Random Forest</h1>
+<p>We created a variant of the Random Forest classifier to capture nonlinear relationships that would not have been caught by regression. Initially, we had to filter out the NBA teams that were irrelevant to the regular season. The feature engineering consisted of computing home advantage, rolling averages, and momentum metrics for both teams. We also took into consideration recent wins.</p>
+
+<img src="imgs/p8.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Random Forest Visualization [9]</i>
+
+<p>The training split consists of data from earlier games and the test data was from more recent games. Iteratively we move the window backward to simulate multiple training and testing splits. This was to make sure that there was no data leakage. We applied PCA to reduce the feature space and used a parameter grid to tune the hyperparameters.</p>
+
+<img src="imgs/p9.png" height="400px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Quantitative Metrics for Random Forest</i>
+
+<img src="imgs/p10.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Classification confusion matrix for the Random Forest Model</i>
+
+<p>This model has an accuracy of 66.67%. While this value is on the higher end it may not be the best metric if certain classes are imbalanced. The precision for class 0 is 83% meaning that the model is highly precise in predicting losses. The precision for class 1 is 56% suggesting that the model is over predicting wins while struggling to differentiate based on positive instances. The weighted F1 score of 67% indicates a better balance between precision and recall. Overall this model performed better than the balanced logistic regression model because there is the existence of nonlinear relationships. While the model correctly classified 10 positives and 10 negatives there was a high number of misclassified negative instances as positives.</p>
+
+<img src="imgs/p11.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Feature Importances across Random Forest</i>
+
+<p>The most important features to the model predictions are feature 1 and 2. Features 3, 4, 6, and 14 are also of moderate importance.</p>
+
+<p>As seen by the accuracy and other metrics the Random Forest is able to handle non-linear feature relationships. We are also able to see which features are of more importance. An accuracy of 66% is not very high which means that the model is still not capturing all the patterns. The precision score of 56% for the positive class means that there are potential issues with noisy data. The higher recall for the positive class came at the cost of lower precision which increased the number of false positives. To improve this model we need to address the class imbalance by oversampling the 1 (minority) and undersampling the 0 (majority). We can also try to experiment with ensemble models like XGBoost for potentially better performance.</p>
+
+<h1>Support Vector Machine</h1>
+
+<img src="imgs/p12.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Support Vector Machine Visualization [11]</i>
+
+<p>We have created a variant of a Support Vector Machine that classifies and predicts wins vs losses of NBA games through a decision boundary, called a hyperplane. The SVM attempts to find the best boundary to separate the different classes and maximize the margins between them. The approach to SVM was very similar to that of the random forest. First, we filtered out the NBA teams that did not play in the regular season. Next, we conducted feature engineering by computing advantage, rolling averages, and momentum metrics for the various teams, considering recent wins and losses.</p>
+
+<img src="imgs/p13.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Line Graph for Regularization Parameter Tuning for SVM</i>
+
+<p>The model specifically used a linear kernel with a regularization parameter of 1, which we found to provide the optimal balance between fitting the data while maintaining generalization. We tuned this parameter by testing a variety of regularization parameters from 0.001 to 100 and graphing and interpreting the classification accuracy and confusion matrix for each. As for the selection of features, we used a threshold of 0.55 to identify the most predictive components and applied these.</p>
+
+<img src="imgs/p14.png" height="500px" width="700px" />
+<i style="display: block; text-align: left;">Figure Name: Classification Confusion Matrix for SVM</i>
+
+<img src="imgs/p15.png" height="100px" width="200px" />
+<i style="display: block; text-align: left;">Figure Name: Quantitative Results for SVM</i>
+
+<p>Ultimately, the model achieved approximately 62% accuracy in predicting game outcomes correctly. Our precision was somewhat low at approximately 63% due to the model’s predictability to choose win, perhaps due to a class imbalance. However, the C value chosen allows the best generalizability, and using completely balanced classes provided lower results. The recall was high at approximately 85% which was very high, detailing the opposite to our low precision, meaning our model was good at predicting wins by being generous. The decision boundary can be said to be more biased to wins. The F1 score remains in a fair place at 72%. This is very notable due to the vast number of variables that could affect each outcome. We worked to beat a 50% baseline accuracy, and we were able to do this to a good extent.</p>
+
+<h1>Model Comparisons</h1>
+<p>Each of these models had their own strengths, weaknesses, and trade-offs. The logistic regression model served as a baseline of how we could predict game outcomes. This model struggled to capture non-linear relationships while showing a high recall percentage (72.73%) with low precision due to a bias in predicting losses. The Random Forest however was much better at handling non-linear feature interactions but surprisingly had the same accuracy as the balanced logistic model (66.67%). However the higher F1 score of (67%) on the Random Forest makes it better at capturing complex patterns. This is why accuracy is not the always the full story in terms of model metrics. The feature importance analysis and utilizing PCA allowed us to achieve good results but it struggled with class imbalance leading to lower precision for predicting wins. The SVM did not have as high accuracy as either model (62%) and had a high recall (85%). SVM, while computationally more intensive, was highly successful in identifying actual wins. It also had the highest F1 score (72%) because the linear kernel captures patterns that align well with the decision boundary for games. The SVM predicts wins more effectively but this also may lead to more false positives.</p>
+
+<h1>Next Steps</h1>
+<p>The baseline accuracy range that we were targeting was 50% upwards to 70%. While the results of all of the models models fall within that range there is more that can be done to increase accuracy. The biggest place for exploration is within our dataset. Although our dataset was quite comprehensive with teams, games, matchups, and statistics, it does not have much data on the individual players or other factors. Adding more features will make the model more complex and add ambiguity, but we could conduct more dimensionality reduction and linear combinations to potentially find better components to use to predict game outcomes. Having access to seemingly crucial knowledge of players such as injuries, individual performance, transfers, and history could prove to bring further understanding of a team’s performance. For example, knowing LeBron was traded to another team would give a properly trained model better classification knowledge on how the team would perform with a newly added superstar. There could even be complex relationships that cannot be predicted by the naked eye such as the travel time, weather patterns, and other entities that would originally be classified as “noise”, such as what is seen in models in fields such as the stock market. Also, our data analysis is focused on the home teams and statistics for the home team. There could potentially be some “alpha” found within looking into the away team statistics and analyzing and comparing those statistics in depth. Ultimately, our models performed quite well in regards to our original plan and goals, but there is a lot more to explore and refine in the field of predicting NBA wins.</p>
+
 	<h1>Gantt Chart</h1>
 	<iframe width="100%" height="750px" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT1ggXSZXs1XpDk8AMOmEeGww-YPANF_QHXqIEghOTeC7YukcOpQv2O7OndCgcjCXzXmA_PfHccIkby/pubhtml?gid=1992682271&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
 	<p>Link: <a href="https://docs.google.com/spreadsheets/d/1XQ0EQoz8NIh5HJAoZL4YnIaZN_QbHBAhaE8E8BESF-k/">https://docs.google.com/spreadsheets/d/1XQ0EQoz8NIh5HJAoZL4YnIaZN_QbHBAhaE8E8BESF-k/</a></p>
@@ -109,27 +156,36 @@
 		<tr>
 		  <td>Anirudh</td>
 		  <td>Literature Review, ML Algorithms/Models, Video Creation<br>
-			  Midterm contributions: Midterm report, ML model, Analysis</td>
+        Midterm contributions: Midterm report, ML model, Analysis<br>
+        Final contributions: Random forest model tuning, Final report, Final slides, Analysis, Video</td>
 		</tr>
 		<tr>
 		  <td>Chris</td>
 		  <td>Results & Discussion, Video Creation, GitHub Page<br>
-			  Midterm contributions: Model Optimization, Model Visualization, Quantitative Measures, GitHub Page</td>
+			  Midterm contributions: Model Optimization, Model Visualization, Quantitative Measures, GitHub Page<br>
+        Final contributions: SVM code refactorign, Final report/slides, Analysis, GitHub Pages, Video
+      </td>
 		</tr>
 		<tr>
 		  <td>Emily</td>
 		  <td>Preprocessing Methods, Video Creation<br>
-			  Midterm contributions: Data preprocessing, Midterm report, Analysis, Visualizations</td>
+			  Midterm contributions: Data preprocessing, Midterm report, Analysis, Visualizations<br>
+        Final contributions: Data preprocessing, SVM model creation, Analysis, Visualizations
+      </td>
 		</tr>
 		<tr>
 		  <td>Jalen</td>
 		  <td>Dataset Description, Problem Definition, Video Creation, Gantt Chart<br>
-			  Midterm contributions: Midterm report, Data preprocessing, Analysis</td>
+			  Midterm contributions: Midterm report, Data preprocessing, Analysis<br>
+        Final Contributions: Random forest model creation, Code refactoring, Analysis, Visualizations
+      </td>
 		</tr>
 		<tr>
 		  <td>Jeff</td>
 		  <td>Dataset Description, Problem Definition, Video Creation<br>
-			  Midterm contributions: Data preprocessing, ML Modeling, Visualizations, Quantitative Measures</td>
+			  Midterm contributions: Data preprocessing, ML Modeling, Visualizations, Quantitative Measures<br>
+        Final Contributions: Data preprocessing, Random forest model creation, Code refactoring, Analysis, Visualizations
+      </td>
 		</tr>
 	  </tbody>
 	</table>
@@ -143,6 +199,9 @@
         <li>C. Walsh and A. Joshi, "Machine learning for sports betting: Should model selection be based on accuracy or calibration?," Machine Learning with Applications, vol. 16, p. 100539, Jun. 2024, doi: <a href="https://doi.org/10.1016/j.mlwa.2024.100539">https://doi.org/10.1016/j.mlwa.2024.100539</a>.</li>
         <li>J. P. Dmochowski, "A statistical theory of optimal decision-making in sports betting," vol. 18, no. 6, pp. e0287601–e0287601, Jun. 2023, doi: <a href="https://doi.org/10.1371/journal.pone.0287601">https://doi.org/10.1371/journal.pone.0287601</a>.</li>
         <li>U. Matej, Š. Gustav, H. Ondřej, and Ž. Filip, "Optimal sports betting strategies in practice: an experimental review," IMA Journal of Management Mathematics, vol. 32, no. 4, pp. 465–489, Feb. 2021, doi: <a href="https://doi.org/10.1093/imaman/dpaa029">https://doi.org/10.1093/imaman/dpaa029</a>.</li>
+        <li><a href="https://www.researchgate.net/journal/Complexity-1099-0526">https://www.researchgate.net/journal/Complexity-1099-0526</a></li>
+        <li><a href="https://towardsdatascience.com/logistic-regression-explained-9ee73cede081">https://towardsdatascience.com/logistic-regression-explained-9ee73cede081</a></li>
+        <li><a href="https://spotintelligence.com/2024/05/06/support-vector-machines-svm/">https://spotintelligence.com/2024/05/06/support-vector-machines-svm/</a></li>
     </ol>
 </body>
 </html>
